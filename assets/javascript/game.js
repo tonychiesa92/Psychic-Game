@@ -14,20 +14,32 @@ var lossesText = document.getElementById("losses-text");
 var countText = document.getElementById("count-text");
 var guessesText = document.getElementById("guesses-text");
 
+// display to html
+winsText.textContent = "Wins: " + wins;
+lossesText.textContent = "Losses: " + losses;
+countText.textContent = "Guesses left: " + count;
+guessesText.textContent = "Your guesses so far: " + guess;
+
 // get user input
 document.onkeyup = function (event) {
-    var userGuess = event.key;
+    var userGuess = event.key.toLowerCase();
 
     // checking for duplicate entries
     var found = guess.search(userGuess);
     if ((found === -1)) {
         // not a duplicate entry
-        guess = guess + " " + userGuess;
+        if ((count === 9)) {
+            guess = userGuess;
+        }
+        else {
+            // adding a comma
+            guess = guess + ", " + userGuess;
+        }
 
         // checking guess
         if ((userGuess !== computerGuess)) {
             count--;
-            // incorect guess
+            // incorrect guess
             if ((count === 0)) {
                 losses++;
                 count = 9;
